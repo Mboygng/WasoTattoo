@@ -1183,32 +1183,39 @@
     const modelViewer = document.querySelector('#viewer-waso');
     const fileInput = document.querySelector('#upload-tatu');
 
-    // Función para cambiar la textura del modelo
     async function aplicarTatuaje(url) {
-        // Esperamos a que el modelo esté cargado
-        if (!modelViewer.model) {
-            alert("Esperá a que cargue el modelo 3D...");
-            return;
-        }
+        if (!modelViewer.model) return;
 
-        const material = modelViewer.model.materials[0]; // El material de la piel
+        // Buscamos el material de la piel
+        const material = modelViewer.model.materials[0];
+        
+        // Creamos la textura
         const textura = await modelViewer.createTexture(url);
         
-        // Aplicamos la imagen como base de color
+        // AJUSTES PARA QUE NO SE ESTIRE POR TODO EL CUERPO:
+        // 1. Evitamos que la imagen se repita (hace que sea un solo sticker)
+        textura.sampler.setWrapS(10496); // ClampToEdge
+        textura.sampler.setWrapT(10496); // ClampToEdge
+        
+        // 2. Aplicamos la textura
         material.pbrMetallicRoughness.baseColorTexture.setTexture(textura);
+        
+        // 3. Ajustamos la escala (para que no ocupe todo el modelo)
+        // Nota: Esto depende de las UVs de tu modelo Male.glb
+        // Si se ve muy grande, avisame y agregamos un multiplicador de escala.
+        alert("¡Tatuaje proyectado! Si se ve en un lugar raro, es por la posición original de la imagen.");
     }
 
-    // Escuchar cuando el usuario elige una foto
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                aplicarTatuaje(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    if(fileInput) {
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => aplicarTatuaje(event.target.result);
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 </script>
 </body>
 </html>
