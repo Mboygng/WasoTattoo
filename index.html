@@ -823,30 +823,26 @@
         }, 150);
     }
 </script>
-<div class="window-body" style="background: #000; margin: 0; padding: 0; position: relative;">
+<div class="window-body" style="background: #000; margin: 0; padding: 0; position: relative; overflow: hidden; height: 500px;">
     
+    <img id="tatu-sticker" src="imagenes/logo.png" 
+         style="position: absolute; width: 80px; z-index: 100; cursor: move; pointer-events: auto; top: 50%; left: 50%; transform: translate(-50%, -50%); filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); display: none;">
+
     <model-viewer 
         id="viewer-waso"
         src="modelos/Male.glb" 
         camera-controls 
         auto-rotate
-        shadow-intensity="1"
-        style="width: 100%; height: 450px; background-color: #000;">
+        loading="eager"
+        style="width: 100%; height: 400px; z-index: 1;">
     </model-viewer>
 
-    <div style="background: #c0c0c0; padding: 10px; border-top: 2px solid #808080; font-family: Tahoma;">
-        
-        <div style="display: flex; gap: 5px; margin-bottom: 10px;">
-            <button onclick="aplicarTatuaje('imagenes/tatu1.png')" style="flex:1; cursor:pointer;">Diseño 1</button>
-            <button onclick="aplicarTatuaje('imagenes/tatu2.png')" style="flex:1; cursor:pointer;">Diseño 2</button>
-            <button onclick="location.reload()" style="flex:1; background:#800000; color:white; cursor:pointer;">Limpiar</button>
-        </div>
-        
-        <div style="border: 2px inset #fff; background: #fff; padding: 5px;">
-            <label for="upload-tatu" style="display: block; width: 100%; text-align: center; cursor: pointer; color: #000; font-weight: bold; font-size: 0.8rem;">
-                📷 SELECCIONAR FOTO DEL CELU
-            </label>
-            <input type="file" id="upload-tatu" accept="image/*" style="display: block; width: 100%; margin-top: 5px;">
+    <div style="background: #c0c0c0; border-top: 2px solid #808080; padding: 10px; height: 100px; overflow-y: auto;">
+        <p style="margin: 0 0 5px 0; font-size: 0.7rem; color: #000; font-weight: bold;">🔥 CATÁLOGO DE DISEÑOS:</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button onclick="cambiarDiseno('imagenes/logo.png')" style="padding: 5px; cursor: pointer;">LOGO WASO</button>
+            <button onclick="cambiarDiseno('imagenes/tatu1.png')" style="padding: 5px; cursor: pointer;">DISEÑO 1</button>
+            <button onclick="borrarTodo()" style="padding: 5px; background: #800000; color: #fff;">BORRAR</button>
         </div>
     </div>
 </div>
@@ -1180,42 +1176,39 @@
     };
 </script>
 <script>
-    const modelViewer = document.querySelector('#viewer-waso');
-    const fileInput = document.querySelector('#upload-tatu');
+    const sticker = document.getElementById('tatu-sticker');
+    let moviendo = false;
 
-    async function aplicarTatuaje(url) {
-        if (!modelViewer.model) return;
-
-        // Buscamos el material de la piel
-        const material = modelViewer.model.materials[0];
-        
-        // Creamos la textura
-        const textura = await modelViewer.createTexture(url);
-        
-        // AJUSTES PARA QUE NO SE ESTIRE POR TODO EL CUERPO:
-        // 1. Evitamos que la imagen se repita (hace que sea un solo sticker)
-        textura.sampler.setWrapS(10496); // ClampToEdge
-        textura.sampler.setWrapT(10496); // ClampToEdge
-        
-        // 2. Aplicamos la textura
-        material.pbrMetallicRoughness.baseColorTexture.setTexture(textura);
-        
-        // 3. Ajustamos la escala (para que no ocupe todo el modelo)
-        // Nota: Esto depende de las UVs de tu modelo Male.glb
-        // Si se ve muy grande, avisame y agregamos un multiplicador de escala.
-        alert("¡Tatuaje proyectado! Si se ve en un lugar raro, es por la posición original de la imagen.");
+    // Función para elegir diseño del catálogo
+    function cambiarDiseno(ruta) {
+        sticker.src = ruta;
+        sticker.style.display = 'block';
+        sticker.style.top = '50%';
+        sticker.style.left = '50%';
     }
 
-    if(fileInput) {
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => aplicarTatuaje(event.target.result);
-                reader.readAsDataURL(file);
-            }
-        });
+    function borrarTodo() {
+        sticker.style.display = 'none';
     }
+
+    // LÓGICA DE MOVIMIENTO (Mouse y Celular)
+    const mover = (e) => {
+        if (!moviendo) return;
+        const x = e.clientX || e.touches[0].clientX;
+        const y = e.clientY || e.touches[0].clientY;
+        
+        // Ajustamos la posición restando un poco para que el dedo no tape el dibujo
+        sticker.style.left = (x - 40) + 'px';
+        sticker.style.top = (y - 40) + 'px';
+        sticker.style.transform = 'none'; 
+    };
+
+    sticker.addEventListener('mousedown', () => moviendo = true);
+    sticker.addEventListener('touchstart', () => moviendo = true);
+    window.addEventListener('mousemove', mover);
+    window.addEventListener('touchmove', mover);
+    window.addEventListener('mouseup', () => moviendo = false);
+    window.addEventListener('touchend', () => moviendo = false);
 </script>
 </body>
 </html>
