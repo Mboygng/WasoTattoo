@@ -869,6 +869,11 @@
         document.getElementById('ventana-simulador').style.display = 'none';
     }
 
+    function abrirSimulador() {
+    document.getElementById('ventana-simulador').style.display = 'block';
+    let audio = new Audio('https://www.soundjay.com/buttons/sounds/button-20.mp3'); // Sonido corto
+    audio.play();
+}
     // Aplicar color de piel y calidad sin errores
     const mv = document.querySelector('#viewer-waso');
 
