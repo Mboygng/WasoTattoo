@@ -828,13 +828,14 @@
 </button>
 
 <div id="ventana-simulador" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; z-index: 9999; display: none; box-shadow: 10px 10px 30px rgba(0,0,0,0.5);">
-    <div class="title-bar">
+    
+    <div class="title-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 3px 6px;">
         <div class="title-bar-text">VISUALIZADOR_3D.EXE</div>
-        <div class="title-bar-controls">
-            <button aria-label="Close" onclick="cerrarSimulador()" style="cursor: pointer;"></button>
-        </div>
+        
+        <button onclick="cerrarSimulador()" style="cursor: pointer; font-weight: bold; padding: 2px 6px; background: #c0c0c0; border: 2px outset #fff;">X</button>
     </div>
-    <div class="window-body" style="margin: 0; padding: 0; background: #1a1a1a; height: 450px; position: relative; overflow: hidden;">
+
+    <div class="window-body" style="margin: 0; padding: 0; background: #1a1a1a; height: 450px; position: relative;">
         
         <model-viewer 
             id="viewer-waso"
@@ -843,9 +844,8 @@
             camera-controls
             loading="eager"
             exposure="1.2"
-            interpolation-decay="200"
             min-pixel-ratio="2" 
-            style="width: 100%; height: 100%; outline: none; background: #1a1a1a;">
+            style="width: 100%; height: 100%; outline: none;">
             
             <div slot="poster" style="display: flex; justify-content: center; align-items: center; height: 100%; color: #39ff14; font-family: monospace;">
                 CARGANDO HD...
@@ -853,6 +853,7 @@
         </model-viewer>
 
     </div>
+    
     <div class="status-bar">
         <p class="status-bar-field">WasoTattoo Studio</p>
         <p class="status-bar-field">Calidad: HD</p>
@@ -860,35 +861,29 @@
 </div>
 
 <script>
-    // Funciones de la ventana
+    // FUNCIONES PARA ABRIR Y CERRAR
     function abrirSimulador() {
-        document.getElementById('ventana-simulador').style.display = 'block';
+        const win = document.getElementById('ventana-simulador');
+        win.style.display = 'block';
+        console.log("Simulador Abierto");
     }
 
     function cerrarSimulador() {
-        document.getElementById('ventana-simulador').style.display = 'none';
+        const win = document.getElementById('ventana-simulador');
+        win.style.display = 'none';
+        console.log("Simulador Cerrado");
     }
 
-    function abrirSimulador() {
-    document.getElementById('ventana-simulador').style.display = 'block';
-    let audio = new Audio('https://www.soundjay.com/buttons/sounds/button-20.mp3'); // Sonido corto
-    audio.play();
-}
-    // Aplicar color de piel y calidad sin errores
+    // APLICAR COLOR PIEL AL CARGAR
     const mv = document.querySelector('#viewer-waso');
-
     mv.addEventListener('load', () => {
-        if (mv.model && mv.model.materials && mv.model.materials.length > 0) {
+        if (mv.model && mv.model.materials.length > 0) {
             const material = mv.model.materials[0];
-            
-            // Seteamos el color piel (RGBA)
+            // Color piel realista
             material.pbrMetallicRoughness.setBaseColorFactor([0.8, 0.6, 0.5, 1.0]);
-            
-            // Ajustamos para que no parezca plástico
+            // Menos brillo para que parezca piel
             material.pbrMetallicRoughness.setRoughnessFactor(0.8);
             material.pbrMetallicRoughness.setMetallicFactor(0.0);
-            
-            console.log("Color de piel aplicado correctamente.");
         }
     });
 </script>
