@@ -869,7 +869,9 @@
 <button onclick="abrirVentana('ventana-video')" style="padding: 10px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; background: #4a4a4a; color: #00ff00; border: 2px outset #fff; border-radius: 5px; position: relative; z-index: 10; display: flex; align-items: center; gap: 5px;">
     <span>▶️</span> PLAYER_VIDEOS.AVI
 </button>
-
+<button onclick="abrirVentana('ventana-estilos')" style="padding: 10px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; background: #ffff00; color: #000; border: 2px outset #fff; border-radius: 5px; position: relative; z-index: 10;">
+    📖 GUIA_ESTILOS.TXT
+</button>
 <div id="ventana-simulador" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; z-index: 9999; display: none; box-shadow: 10px 10px 30px rgba(0,0,0,0.5);">
     
     <div class="title-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 3px 6px;">
@@ -928,6 +930,39 @@
                 CERRAR
             </button>
         </div>
+    </div>
+</div>
+<div id="ventana-estilos" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; z-index: 9997; display: none; box-shadow: 10px 10px 25px rgba(0,0,0,0.6);">
+    <div class="title-bar" style="background: #808080;">
+        <div class="title-bar-text">GUIA_ESTILOS.TXT - Bloc de notas</div>
+        <div class="title-bar-controls">
+            <button aria-label="Close" onclick="cerrarVentana('ventana-estilos')"></button>
+        </div>
+    </div>
+    <div class="window-body" style="background: #fff; color: #000; font-family: 'Courier New', monospace; padding: 10px; height: 350px; overflow-y: scroll; border: 2px inset #fff;">
+        <h3 style="text-align: center; border-bottom: 1px solid #000;">--- DICCIONARIO WASO TATTOO ---</h3>
+        <p><strong>• Anime:</strong> Fiel a los dibus japoneses.</p>
+        <p><strong>• Blackout:</strong> Todo negro sólido, tapado total.</p>
+        <p><strong>• Blackwork:</strong> Solo tinta negra, sin grises.</p>
+        <p><strong>• Cyber Sigil:</strong> Líneas futuristas tipo cables.</p>
+        <p><strong>• Dotwork:</strong> Sombreado a puro puntito.</p>
+        <p><strong>• Fine Line:</strong> Líneas finitas y delicadas.</p>
+        <p><strong>• Geométrico:</strong> Simetría y formas perfectas.</p>
+        <p><strong>• Glitch:</strong> Efecto de error de señal o tele.</p>
+        <p><strong>• Ignorant Style:</strong> Dibujos "feos" con mucha onda.</p>
+        <p><strong>• Lettering:</strong> El arte de las letras.</p>
+        <p><strong>• Marca de agua:</strong> Suave como una acuarela.</p>
+        <p><strong>• Neotradicional:</strong> El tradi con más detalle.</p>
+        <p><strong>• Sketch:</strong> Estilo boceto a lápiz.</p>
+        <p><strong>• Tradi Japo:</strong> Dragones y cultura oriental.</p>
+        <p><strong>• Tradicional:</strong> Línea gruesa y colores clásicos.</p>
+        <p><strong>• Trash Polka:</strong> Caos en negro y rojo.</p>
+        <p><strong>• Tribal:</strong> Formas negras de la vieja escuela.</p>
+        <br>
+        <p style="text-align: center;">*** FIN DEL ARCHIVO ***</p>
+    </div>
+    <div style="background: #c0c0c0; padding: 5px; display: flex; justify-content: flex-end;">
+        <button onclick="cerrarVentana('ventana-estilos')" style="padding: 2px 10px; cursor: pointer; border: 2px outset #fff;">Aceptar</button>
     </div>
 </div>
 
