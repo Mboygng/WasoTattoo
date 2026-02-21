@@ -826,6 +826,9 @@
 <button onclick="abrirSimulador()" style="padding: 10px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; background: #00c6ff; color: white; border: 2px outset #fff; border-radius: 5px; position: relative; z-index: 10;">
     🌐 ABRIR SIMULADOR 3D
 </button>
+<button onclick="abrirVentana('ventana-video')" style="padding: 10px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; background: #4a4a4a; color: #00ff00; border: 2px outset #fff; border-radius: 5px; position: relative; z-index: 10; display: flex; align-items: center; gap: 5px;">
+    <span>▶️</span> PLAYER_VIDEOS.AVI
+</button>
 
 <div id="ventana-simulador" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; z-index: 9999; display: none; box-shadow: 10px 10px 30px rgba(0,0,0,0.5);">
     
@@ -859,33 +862,75 @@
         <p class="status-bar-field">Calidad: HD</p>
     </div>
 </div>
+<div id="ventana-video" class="window" style="position: fixed; top: 40%; left: 40%; transform: translate(-50%, -50%); width: 320px; z-index: 9998; display: none; box-shadow: 10px 10px 25px rgba(0,0,0,0.6);">
+    <div class="title-bar" style="background: linear-gradient(90deg, #000080, #1084d0);">
+        <div class="title-bar-text">Windows Media Player - [Waso_Studio.avi]</div>
+        <div class="title-bar-controls">
+            <button aria-label="Close" onclick="cerrarVentana('ventana-video')"></button>
+        </div>
+    </div>
+    
+    <div class="window-body" style="margin: 0; padding: 5px; background: #c0c0c0;">
+        <div style="background: #000; width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; border: 2px inset #fff;">
+            <video id="video-waso" width="100%" height="100%" controls style="background: #000;">
+                <source src="video/proceso.mp4" type="video/mp4">
+                Tu navegador no soporta videos.
+            </video>
+        </div>
+        
+        <div class="status-bar" style="margin-top: 5px;">
+            <p class="status-bar-field">Reproduciendo...</p>
+            <p class="status-bar-field" style="text-align: right;">128 kbps</p>
+        </div>
+    </div>
+</div>
 
 <script>
-    // FUNCIONES PARA ABRIR Y CERRAR
-    function abrirSimulador() {
-        const win = document.getElementById('ventana-simulador');
-        win.style.display = 'block';
-        console.log("Simulador Abierto");
-    }
-
-    function cerrarSimulador() {
-        const win = document.getElementById('ventana-simulador');
-        win.style.display = 'none';
-        console.log("Simulador Cerrado");
-    }
-
-    // APLICAR COLOR PIEL AL CARGAR
-    const mv = document.querySelector('#viewer-waso');
-    mv.addEventListener('load', () => {
-        if (mv.model && mv.model.materials.length > 0) {
-            const material = mv.model.materials[0];
-            // Color piel realista
-            material.pbrMetallicRoughness.setBaseColorFactor([0.8, 0.6, 0.5, 1.0]);
-            // Menos brillo para que parezca piel
-            material.pbrMetallicRoughness.setRoughnessFactor(0.8);
-            material.pbrMetallicRoughness.setMetallicFactor(0.0);
+    // ESTA FUNCIÓN SIRVE PARA TODAS LAS VENTANAS
+    function abrirVentana(id) {
+        const win = document.getElementById(id);
+        if (win) {
+            win.style.display = 'block';
+            console.log("Abriendo: " + id);
+            
+            // Si abrís el video, que empiece a sonar solo
+            if(id === 'ventana-video') {
+                const v = document.getElementById('video-waso');
+                if(v) v.play();
+            }
         }
-    });
+    }
+
+    function cerrarVentana(id) {
+        const win = document.getElementById(id);
+        if (win) {
+            win.style.display = 'none';
+            console.log("Cerrando: " + id);
+            
+            // Si cerrás el video, que se calle (importante!)
+            if(id === 'ventana-video') {
+                const v = document.getElementById('video-waso');
+                if(v) v.pause();
+            }
+        }
+    }
+
+    // MANTENEMOS ESTAS PARA QUE TUS BOTONES VIEJOS NO FALLEN
+    function abrirSimulador() { abrirVentana('ventana-simulador'); }
+    function cerrarSimulador() { cerrarVentana('ventana-simulador'); }
+
+    // COLOR PIEL DEL MODELO (Igual que antes, impecable)
+    const mv = document.querySelector('#viewer-waso');
+    if (mv) {
+        mv.addEventListener('load', () => {
+            if (mv.model && mv.model.materials.length > 0) {
+                const material = mv.model.materials[0];
+                material.pbrMetallicRoughness.setBaseColorFactor([0.8, 0.6, 0.5, 1.0]);
+                material.pbrMetallicRoughness.setRoughnessFactor(0.8);
+                material.pbrMetallicRoughness.setMetallicFactor(0.0);
+            }
+        });
+    }
 </script>
     <h3 style="text-align: center; text-transform: uppercase; letter-spacing: 4px; margin-top: 40px;">Galería de Trabajos</h3>
     <div class="carrusel-scroll" id="carrusel">
