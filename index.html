@@ -823,27 +823,39 @@
         }, 150);
     }
 </script>
-<div id="ventana-simulador" class="window" style="position: fixed; bottom: 60px; right: 20px; width: 320px; z-index: 1000; display: block;">
+<button onclick="abrirSimulador()" style="padding: 10px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; background: #00c6ff; color: white; border: 2px outset #fff; border-radius: 5px;">
+    🌐 ABRIR SIMULADOR 3D
+</button>
+
+<div id="ventana-simulador" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; z-index: 1000; display: none; box-shadow: 10px 10px 30px rgba(0,0,0,0.5);">
     <div class="title-bar">
-        <div class="title-bar-text">SIMULADOR_3D.EXE</div>
+        <div class="title-bar-text">VISUALIZADOR_3D.EXE</div>
         <div class="title-bar-controls">
-            <button aria-label="Minimize"></button>
             <button aria-label="Close" onclick="cerrarSimulador()"></button>
         </div>
     </div>
-    <div class="window-body" style="margin: 0; padding: 0; height: 400px;">
-        <iframe src="simulador.html" style="width: 100%; height: 100%; border: none;"></iframe>
+    <div class="window-body" style="margin: 0; padding: 0; background: #000; height: 450px;">
+        <model-viewer 
+            id="viewer-waso"
+            src="modelos/Male.glb" 
+            alt="Modelo 3D WasoTattoo" 
+            auto-rotate 
+            camera-controls 
+            style="width: 100%; height: 100%; outline: none;">
+        </model-viewer>
+    </div>
+    <div class="status-bar">
+        <p class="status-bar-field">Estado: Girando...</p>
+        <p class="status-bar-field">WasoTattoo Studio</p>
     </div>
 </div>
 
-<button onclick="abrirSimulador()" style="position: fixed; bottom: 10px; right: 20px; z-index: 1001;">Abrir Simulador</button>
-
 <script>
-    function cerrarSimulador() {
-        document.getElementById('ventana-simulador').style.display = 'none';
-    }
     function abrirSimulador() {
         document.getElementById('ventana-simulador').style.display = 'block';
+    }
+    function cerrarSimulador() {
+        document.getElementById('ventana-simulador').style.display = 'none';
     }
 </script>
 
