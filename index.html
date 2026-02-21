@@ -1001,52 +1001,47 @@
         <button onclick="cerrarVentana('ventana-estilos')" style="padding: 2px 10px; cursor: pointer; border: 2px outset #fff;">Aceptar</button>
     </div>
 </div>
-<div id="ventana-fuentes" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 450px; z-index: 9996; display: none; box-shadow: 10px 10px 25px rgba(0,0,0,0.6);">
+<div id="ventana-fuentes" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 500px; z-index: 9996; display: none; box-shadow: 10px 10px 25px rgba(0,0,0,0.6);">
     <div class="title-bar">
-        <div class="title-bar-text">CATALOGO_DE_FUENTES_V4.EXE</div>
+        <div class="title-bar-text">CATALOGO_DE_FUENTES_V4.EXE - Generador Waso</div>
         <div class="title-bar-controls">
             <button aria-label="Close" onclick="cerrarVentana('ventana-fuentes')"></button>
         </div>
     </div>
     
-    <div class="window-body" style="background: #fff; margin: 0; padding: 10px;">
-        <p style="color: #000; font-family: Tahoma; font-size: 12px; margin-bottom: 10px; border-bottom: 1px solid #000;">
-            Seleccioná el estilo de letra para tu próximo escracho:
-        </p>
+    <div class="window-body" style="background: #c0c0c0; margin: 0; padding: 10px;">
+        <div style="background: #fff; padding: 10px; border: 2px inset #fff; margin-bottom: 10px;">
+            <label style="font-family: Tahoma; font-size: 11px; display: block; margin-bottom: 5px; font-weight: bold;">ESCRIBÍ TU FRASE ACÁ:</label>
+            <input type="text" id="input-tattoo" onkeyup="actualizarFuentes()" placeholder="Ej: Waso Tattoo" style="width: 100%; padding: 8px; font-family: Tahoma; border: 2px inset #fff; box-sizing: border-box; font-size: 1.2rem;">
+        </div>
 
-        <div style="height: 350px; overflow-y: scroll; border: 2px inset #fff; padding: 10px; background: #f0f0f0;">
+        <div id="contenedor-muestras" style="height: 300px; overflow-y: scroll; border: 2px inset #fff; padding: 10px; background: #fff;">
             
-            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
-                <p style="font-size: 0.7rem; color: #666;">ESTILO: CHICANO / GÓTICO</p>
-                <h2 style="font-family: 'Old English Text MT', serif; font-size: 2rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            <div class="fuente-box" style="margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <span style="font-size: 0.7rem; color: #666; font-family: Tahoma;">ESTILO: CHICANO / GÓTICO</span>
+                    <a href="https://www.dafont.com/es/theme.php?cat=401" target="_blank" style="font-size: 0.6rem; color: blue;">[DESCARGAR]</a>
+                </div>
+                <h2 class="texto-muestra" style="font-family: 'Old English Text MT', serif; font-size: 2.2rem; margin: 0; color: #000; overflow-wrap: break-word;">Waso Tattoo</h2>
             </div>
 
-            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
-                <p style="font-size: 0.7rem; color: #666;">ESTILO: FINE LINE / CURSIVA</p>
-                <h2 style="font-family: 'Brush Script MT', cursive; font-size: 2rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            <div class="fuente-box" style="margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <span style="font-size: 0.7rem; color: #666; font-family: Tahoma;">ESTILO: CURSIVA ELEGANTE</span>
+                    <a href="https://www.dafont.com/es/theme.php?cat=601" target="_blank" style="font-size: 0.6rem; color: blue;">[DESCARGAR]</a>
+                </div>
+                <h2 class="texto-muestra" style="font-family: 'Brush Script MT', cursive; font-size: 2.2rem; margin: 0; color: #000; overflow-wrap: break-word;">Waso Tattoo</h2>
             </div>
 
-            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
-                <p style="font-size: 0.7rem; color: #666;">ESTILO: MÁQUINA DE ESCRIBIR</p>
-                <h2 style="font-family: 'Courier New', monospace; font-size: 1.8rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
-            </div>
-
-            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
-                <p style="font-size: 0.7rem; color: #666;">ESTILO: GRAFFITI / URBANO</p>
-                <h2 style="font-family: 'Impact', sans-serif; font-size: 2rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
-            </div>
-
-            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
-                <p style="font-size: 0.7rem; color: #666;">ESTILO: TRADICIONAL</p>
-                <h2 style="font-family: 'Georgia', serif; font-weight: bold; font-style: italic; font-size: 1.8rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            <div class="fuente-box" style="margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <span style="font-size: 0.7rem; color: #666; font-family: Tahoma;">ESTILO: MÁQUINA DE ESCRIBIR</span>
+                    <a href="https://www.dafont.com/es/theme.php?cat=603" target="_blank" style="font-size: 0.6rem; color: blue;">[DESCARGAR]</a>
+                </div>
+                <h2 class="texto-muestra" style="font-family: 'Courier New', monospace; font-size: 1.8rem; margin: 0; color: #000; overflow-wrap: break-word;">Waso Tattoo</h2>
             </div>
 
             </div>
-    </div>
-
-    <div class="status-bar">
-        <p class="status-bar-field">Fuentes cargadas: 5</p>
-        <p class="status-bar-field">Waso_v4</p>
     </div>
 </div>
 <script>
@@ -1423,6 +1418,21 @@
         let secs = Math.floor(audio.currentTime % 60);
         timeDisplay.innerText = mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
     };
+    function actualizarFuentes() {
+    // Agarramos lo que el usuario escribió
+    let texto = document.getElementById('input-tattoo').value;
+    
+    // Si está vacío, ponemos el nombre del estudio por defecto
+    if (texto.trim() === "") {
+        texto = "Waso Tattoo";
+    }
+    
+    // Buscamos todos los h2 con la clase 'texto-muestra' y les cambiamos el texto
+    let muestras = document.querySelectorAll('.texto-muestra');
+    muestras.forEach(h2 => {
+        h2.innerText = texto;
+    });
+}
 </script>
 </body>
 </html>
