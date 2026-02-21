@@ -823,29 +823,29 @@
         }, 150);
     }
 </script>
-<div class="window-body" style="background: #000; margin: 0; padding: 0; position: relative; overflow: hidden; height: 500px;">
-    
-    <img id="tatu-sticker" src="imagenes/logo.png" 
-         style="position: absolute; width: 80px; z-index: 100; cursor: move; pointer-events: auto; top: 50%; left: 50%; transform: translate(-50%, -50%); filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); display: none;">
-
-    <model-viewer 
-        id="viewer-waso"
-        src="modelos/Male.glb" 
-        camera-controls 
-        auto-rotate
-        loading="eager"
-        style="width: 100%; height: 400px; z-index: 1;">
-    </model-viewer>
-
-    <div style="background: #c0c0c0; border-top: 2px solid #808080; padding: 10px; height: 100px; overflow-y: auto;">
-        <p style="margin: 0 0 5px 0; font-size: 0.7rem; color: #000; font-weight: bold;">🔥 CATÁLOGO DE DISEÑOS:</p>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button onclick="cambiarDiseno('imagenes/logo.png')" style="padding: 5px; cursor: pointer;">LOGO WASO</button>
-            <button onclick="cambiarDiseno('imagenes/tatu1.png')" style="padding: 5px; cursor: pointer;">DISEÑO 1</button>
-            <button onclick="borrarTodo()" style="padding: 5px; background: #800000; color: #fff;">BORRAR</button>
+<div id="ventana-simulador" class="window" style="position: fixed; bottom: 60px; right: 20px; width: 320px; z-index: 1000; display: block;">
+    <div class="title-bar">
+        <div class="title-bar-text">SIMULADOR_3D.EXE</div>
+        <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Close" onclick="cerrarSimulador()"></button>
         </div>
     </div>
+    <div class="window-body" style="margin: 0; padding: 0; height: 400px;">
+        <iframe src="simulador.html" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
 </div>
+
+<button onclick="abrirSimulador()" style="position: fixed; bottom: 10px; right: 20px; z-index: 1001;">Abrir Simulador</button>
+
+<script>
+    function cerrarSimulador() {
+        document.getElementById('ventana-simulador').style.display = 'none';
+    }
+    function abrirSimulador() {
+        document.getElementById('ventana-simulador').style.display = 'block';
+    }
+</script>
 
     <h3 style="text-align: center; text-transform: uppercase; letter-spacing: 4px; margin-top: 40px;">Galería de Trabajos</h3>
     <div class="carrusel-scroll" id="carrusel">
@@ -1174,41 +1174,6 @@
         let secs = Math.floor(audio.currentTime % 60);
         timeDisplay.innerText = mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
     };
-</script>
-<script>
-    const sticker = document.getElementById('tatu-sticker');
-    let moviendo = false;
-
-    // Función para elegir diseño del catálogo
-    function cambiarDiseno(ruta) {
-        sticker.src = ruta;
-        sticker.style.display = 'block';
-        sticker.style.top = '50%';
-        sticker.style.left = '50%';
-    }
-
-    function borrarTodo() {
-        sticker.style.display = 'none';
-    }
-
-    // LÓGICA DE MOVIMIENTO (Mouse y Celular)
-    const mover = (e) => {
-        if (!moviendo) return;
-        const x = e.clientX || e.touches[0].clientX;
-        const y = e.clientY || e.touches[0].clientY;
-        
-        // Ajustamos la posición restando un poco para que el dedo no tape el dibujo
-        sticker.style.left = (x - 40) + 'px';
-        sticker.style.top = (y - 40) + 'px';
-        sticker.style.transform = 'none'; 
-    };
-
-    sticker.addEventListener('mousedown', () => moviendo = true);
-    sticker.addEventListener('touchstart', () => moviendo = true);
-    window.addEventListener('mousemove', mover);
-    window.addEventListener('touchmove', mover);
-    window.addEventListener('mouseup', () => moviendo = false);
-    window.addEventListener('touchend', () => moviendo = false);
 </script>
 </body>
 </html>

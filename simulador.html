@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body { margin: 0; padding: 0; background: #000; overflow: hidden; font-family: Tahoma, sans-serif; }
+        #tatu-sticker {
+            position: absolute; width: 80px; z-index: 100; cursor: move; 
+            top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); display: none;
+        }
+        .controles {
+            background: #c0c0c0; border-top: 2px solid #808080; padding: 8px;
+            position: absolute; bottom: 0; width: 100%; box-sizing: border-box;
+        }
+        button { cursor: pointer; padding: 4px 8px; font-size: 11px; }
+    </style>
+</head>
+<body>
+
+    <img id="tatu-sticker" src="imagenes/logo.png">
+
+    <model-viewer 
+        id="viewer-waso"
+        src="modelos/Male.glb" 
+        camera-controls 
+        auto-rotate
+        style="width: 100%; height: 100vh;">
+    </model-viewer>
+
+    <div class="controles">
+        <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+            <button onclick="cambiarDiseno('imagenes/logo.png')">LOGO WASO</button>
+            <button onclick="cambiarDiseno('imagenes/tatu1.png')">DISEÑO 1</button>
+            <button onclick="borrarTodo()" style="background: #800000; color: white;">BORRAR</button>
+        </div>
+    </div>
+
+    <script>
+        const sticker = document.getElementById('tatu-sticker');
+        let moviendo = false;
+
+        function cambiarDiseno(ruta) {
+            sticker.src = ruta;
+            sticker.style.display = 'block';
+            sticker.style.top = '50%';
+            sticker.style.left = '50%';
+        }
+
+        function borrarTodo() { sticker.style.display = 'none'; }
+
+        const mover = (e) => {
+            if (!moviendo) return;
+            const x = e.clientX || e.touches[0].clientX;
+            const y = e.clientY || (e.touches[0] ? e.touches[0].clientY : 0);
+            sticker.style.left = (x - 40) + 'px';
+            sticker.style.top = (y - 40) + 'px';
+            sticker.style.transform = 'none'; 
+        };
+
+        sticker.addEventListener('mousedown', () => moviendo = true);
+        sticker.addEventListener('touchstart', (e) => { moviendo = true; e.preventDefault(); }, {passive: false});
+        window.addEventListener('mousemove', mover);
+        window.addEventListener('touchmove', mover, {passive: false});
+        window.addEventListener('mouseup', () => moviendo = false);
+        window.addEventListener('touchend', () => moviendo = false);
+    </script>
+</body>
+</html>
