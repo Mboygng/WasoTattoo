@@ -872,6 +872,9 @@
 <button onclick="abrirVentana('ventana-estilos')" style="padding: 10px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; background: #ffff00; color: #000; border: 2px outset #fff; border-radius: 5px; position: relative; z-index: 10;">
     📖 GUIA_ESTILOS.TXT
 </button>
+<button onclick="abrirVentana('ventana-fuentes')" style="padding: 10px; cursor: pointer; font-family: 'Tahoma'; font-weight: bold; background: #000080; color: #fff; border: 2px outset #fff; border-radius: 5px; position: relative; z-index: 10;">
+    🔠 CATALOGO_FUENTES.EXE
+</button>
 <div id="ventana-simulador" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; z-index: 9999; display: none; box-shadow: 10px 10px 30px rgba(0,0,0,0.5);">
     
     <div class="title-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 3px 6px;">
@@ -998,7 +1001,54 @@
         <button onclick="cerrarVentana('ventana-estilos')" style="padding: 2px 10px; cursor: pointer; border: 2px outset #fff;">Aceptar</button>
     </div>
 </div>
+<div id="ventana-fuentes" class="window" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 450px; z-index: 9996; display: none; box-shadow: 10px 10px 25px rgba(0,0,0,0.6);">
+    <div class="title-bar">
+        <div class="title-bar-text">CATALOGO_DE_FUENTES_V4.EXE</div>
+        <div class="title-bar-controls">
+            <button aria-label="Close" onclick="cerrarVentana('ventana-fuentes')"></button>
+        </div>
+    </div>
+    
+    <div class="window-body" style="background: #fff; margin: 0; padding: 10px;">
+        <p style="color: #000; font-family: Tahoma; font-size: 12px; margin-bottom: 10px; border-bottom: 1px solid #000;">
+            Seleccioná el estilo de letra para tu próximo escracho:
+        </p>
 
+        <div style="height: 350px; overflow-y: scroll; border: 2px inset #fff; padding: 10px; background: #f0f0f0;">
+            
+            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                <p style="font-size: 0.7rem; color: #666;">ESTILO: CHICANO / GÓTICO</p>
+                <h2 style="font-family: 'Old English Text MT', serif; font-size: 2rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            </div>
+
+            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                <p style="font-size: 0.7rem; color: #666;">ESTILO: FINE LINE / CURSIVA</p>
+                <h2 style="font-family: 'Brush Script MT', cursive; font-size: 2rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            </div>
+
+            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                <p style="font-size: 0.7rem; color: #666;">ESTILO: MÁQUINA DE ESCRIBIR</p>
+                <h2 style="font-family: 'Courier New', monospace; font-size: 1.8rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            </div>
+
+            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                <p style="font-size: 0.7rem; color: #666;">ESTILO: GRAFFITI / URBANO</p>
+                <h2 style="font-family: 'Impact', sans-serif; font-size: 2rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            </div>
+
+            <div style="margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                <p style="font-size: 0.7rem; color: #666;">ESTILO: TRADICIONAL</p>
+                <h2 style="font-family: 'Georgia', serif; font-weight: bold; font-style: italic; font-size: 1.8rem; margin: 5px 0; color: #000;">Waso Tattoo</h2>
+            </div>
+
+            </div>
+    </div>
+
+    <div class="status-bar">
+        <p class="status-bar-field">Fuentes cargadas: 5</p>
+        <p class="status-bar-field">Waso_v4</p>
+    </div>
+</div>
 <script>
     // ESTA FUNCIÓN SIRVE PARA TODAS LAS VENTANAS
     function abrirVentana(id) {
